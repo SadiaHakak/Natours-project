@@ -1,0 +1,117 @@
+.form{
+
+	&__group{
+		&:not(:last-child){
+      margin-bottom: 2rem;
+        }
+	}
+
+	&__input{
+       display: block;
+       width:90%;
+       padding:1.5rem 2rem;
+       font-size:1.5rem;
+       color:inherit;
+       font-family:inherit;
+       border-radius:2px;
+       background-color: rgba($color-white, .5);
+       border:none;
+       border-bottom:3px solid transparent;  //to prevent the input element from moving a little down when we focus on it
+       transition:all .3s;
+          &::-webkit-input-placeholder{
+    	color:#999;
+
+    	 @include respond(tab-port){
+         	width:100%;
+         	
+         }
+
+         }
+
+         &:focus{
+       outline:none; //to get rid of the blue outline around the box
+       box-shadow:0 1rem 2rem rgba($color-black,.1);
+       border-bottom:3px solid $color-primary;
+
+         }
+
+         //when we have focused invalid input element
+         &:focus:invalid{
+         	 border-bottom:3px solid $color-secondary-dark;
+         }
+	}
+    
+    
+    
+   
+
+	&__label{
+       font-size:1.2rem;
+       font-weight:700;
+       margin-left: 2rem;
+       margin-top:.7rem;
+       display:block;  //so that we can apply margin and padding
+       transition: all .3s;
+
+
+	}
+
+	// when placeholder is  shown on input element what we want to happen to label  
+	&__input:placeholder-shown + &__label{
+        opacity:0;
+        visibility:hidden;
+        transform:translateY(-4rem);
+	}
+
+	&__radio-group{
+         display:inline-block;
+         width:48%;
+
+         @include respond(tab-port){
+         	width:100%;
+         	margin-bottom:2rem;
+         }
+
+	}
+	&__button{
+		display:inline-block;
+		height:3rem;
+		width:3rem;
+		border-radius:100%;
+		border:5px $color-primary solid;
+		position:absolute;
+		left:-.5rem;
+		top:-.7rem;
+
+
+		&::after{
+			content:"";
+			display:inline-block;
+			height:1.3rem;
+			width:1.3rem;
+			border-radius:100%;
+			background-color: $color-primary;
+			position:absolute;
+			top:50%;
+			left:50%;
+			transform:translate(-50%,-50%);
+			opacity:0;
+			transition:all .3s;
+
+		}
+	}
+	&__radio-input{
+        display:none; 
+	}
+	&__radio-label{
+		position:relative; //bcoz button is set to absolute position
+		font-size:$default-font-size;
+		cursor:pointer;
+		padding-left:4rem;
+
+	}
+
+	&__radio-input:checked ~&__radio-label &__button::after{
+		opacity:1;
+	}
+}

@@ -1,0 +1,166 @@
+.navigation{
+	&__checkbox{
+      display:none;
+	}
+
+	&__button{
+       height:7rem;  //when we click on the label,the checkbox is checked
+       width:7rem;         //label is in the form of a circular located on navigation background button
+       border-radius:100%;
+       background-color: #fff;
+       position:fixed;
+       top:6rem;
+       right:6rem;
+       z-index:200;
+       text-align: center;
+       box-shadow: $shadow-light;
+       cursor:pointer;
+
+       @include respond(tab-port){
+        top:4rem;
+       right:4rem;
+       }
+        @include respond(phone){
+        top:3rem;
+       right:3rem;
+       }
+	}
+
+	&__background{
+       height:6rem;
+       width:6rem;
+       border-radius:100%; //to make div circular
+       background-image: radial-gradient($color-primary-light,$color-primary-dark);
+       position:fixed;
+       top:6.5rem;
+       right: 6.5rem;
+       z-index:100;
+       transition:transform .3s;
+         @include respond(tab-port){
+          top:4.5rem;
+          right:4.5rem;
+       }
+       @include respond(phone){
+        top:3.5rem;
+       right:3.5rem;
+       }
+       
+	}
+
+	&__nav{
+	  height:100vh;
+	  width:0%;  //in normal state navigation is hidden and width is animable
+      z-index:150;
+      position:fixed; //bcoz we want the navigation to always stay fixed when we scroll the page
+      top:0%;
+      left:0%;
+      opacity:0;
+      transition:all .3s;
+
+
+     }
+
+	&__list{
+       
+       list-style:none;
+       position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      text-align:center;
+      width:100%;
+       
+
+	}
+
+	&__item{
+      margin:1rem;
+	}
+
+	&__link{
+
+		&:link,
+		&:visited{
+			  display:inline-block;  //so that padding etc applies and it allows span element aligned
+		      font-size:3rem;
+		      font-weight: 300;
+		      padding:1rem 2rem;
+		      color:white;
+		      text-decoration: none;
+		      text-transform: uppercase;
+		      background-image:linear-gradient(120deg,transparent 0%,transparent 50%, white 50%);
+		      background-size:250%;  //check** bcg shifts right bcox is bigger
+		      transition:all .4s;
+		        span{
+		        	margin-right: 1.5rem;
+		        	display:inline-block;
+		        }
+          text-shadow:3rem 5rem 7rem green;
+		      
+
+      }
+
+      &:hover,&:active{
+          background-position:100%; //check**  bcg comes to left at 100%
+          color:$color-primary;
+          transform:translateX(1rem);
+
+          
+      }
+	}
+
+	&__checkbox:checked ~&__background{
+		transform: scale(80);   //the circular div behind label button expands
+
+	}
+	&__checkbox:checked ~&__nav{
+		opacity: 1;
+		width:100%;
+	}
+
+/////////////ICON...........................
+   &__icon{
+    position:relative;
+    margin-top:3.5rem;
+   	&,
+   	&::before,
+   	&::after{
+     background-color:#333;
+     height:2px;
+     width:3rem;
+     display:inline-block; //to apply height and width to span
+     transition:all .2s;
+   	}
+   	&::before,
+   	&::after{
+   		content:"";
+   		position:absolute;
+   		left:0;
+   	}
+   	&:before{
+   		top:-.8rem;
+   	}
+   	&:after{
+   		top:.8rem;
+   	}
+   }
+  
+   &__button:hover &__icon::before{
+      top:-1rem;
+   }
+   &__button:hover &__icon::after{
+   	  top:1rem;
+   }
+
+   &__checkbox:checked + &__button &__icon{   //when chkbx is checked select its sibling button and then nested icon 
+   	background-color:transparent;
+   }
+   &__checkbox:checked + &__button &__icon::before{
+   	transform:rotate(135deg);
+   	top:0;  //same point on the axis of rotation
+   }
+   &__checkbox:checked + &__button &__icon::after{
+   	transform:rotate(-135deg);
+   	top:0;
+   }
+}
